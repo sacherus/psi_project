@@ -6,6 +6,10 @@ from feincms.content.raw.models import RawContent
 from feincms.content.medialibrary.models import MediaFileContent
 from feincms.content.image.models import ImageContent
 from feincms.content.file.models import FileContent
+from feincms.module.page.extensions.navigation import NavigationExtension, PagePretender
+
+
+
 
 Page.register_templates({
 	'key': 'base',
@@ -17,6 +21,8 @@ Page.register_templates({
         ),
     })
 
+
+
 Page.create_content_type(RichTextContent)
 Page.create_content_type(RawContent)
 Page.create_content_type(FileContent)
@@ -25,5 +31,6 @@ Page.create_content_type(ImageContent, POSITION_CHOICES=(
     ('default', 'Default position'),
     ))
 
-
-Page.register_extensions('navigation', 'changedate')
+Page.register_extensions(
+    'feincms.module.page.extensions.navigation',
+    )

@@ -1,10 +1,4 @@
-{% load feincms_page_tags %}
 
-<html>
-<head>
-    <title>{{ feincms_page.title }}</title>
-    {{ feincms_page.content.media }}
-    <style type="text/css">
     body {
         font-family: Lucida, Helvetica, Arial, sans-serif;
         font-size: 12px;
@@ -80,35 +74,3 @@
     * html .clearfix {
         height: 1%;
     }
-    </style>
-</head>
-<h1>{{ feincms_page.title }}</h1>
-
-
-    <div id="navigation" class="clearfix">
-        {% feincms_nav feincms_page level=1 as toplevel %}
-        {% for p in toplevel %}
-        <a {% if p|is_equal_or_parent_of:feincms_page %}class="mark"{% endif %} href="{{ p.get_absolute_url }}">{{ p.title }}</a>
-        {% endfor %}
-    </div>
-
-
-
-<div id="wrapper">
-<div id="main">
-{% block content %} {% for content in feincms_page.content.main %}
-</div>
-
-{{ content.render }}
-{% endfor %} {% endblock %}
-</div>
-
-<div id="sidebar">
-{% block sidebar %} {% for content in feincms_page.content.sidebar %}
-
-{{ content.render }}
-{% endfor %} {% endblock %}
-</div>
-</div>
-
-</html>
