@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content_block %}
+    <h1>{% block title_block %}Create an Account{% endblock %}</h1>
+    <div style="margin-top: 20px;">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Create the account">
+        </form>
+    </div>
+    {% load staticfiles %}
+    <a href={% url socialauth_begin 'google' %}?{{ redirect_querystring }}"><img src="{% static "img/google.jpg" %}" alt="Login as google account" /></a>
+{% endblock %}

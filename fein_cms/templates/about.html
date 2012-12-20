@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content_block %}
+<h1>{% block title_block %}About{% endblock %}</h1>
+<div style="margin-top: 20px;">
+Snippet allows you to write your code online. It makes it look pretty using syntax highlighting. You can store your codes or export them to a file!
+<h4>Nothing simpler, so what about giving it a try?</h4>
+  {% if not user.is_authenticated %}
+To indulge in all the facilities our site offers, please <strong><a href="/accounts/login" >sign in</a></strong>! 
+ {% endif %}
+</div>
+{% endblock %}

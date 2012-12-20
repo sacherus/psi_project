@@ -1,0 +1,14 @@
+{% extends 'highlight/_code.html' %}
+
+{% block content_block %}
+
+ <h1>{% block title_block %}Enter your code{% endblock %}</h1>
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+    <input type="submit" value="Colorize" />
+</form>
+
+{% endblock %}
+
+

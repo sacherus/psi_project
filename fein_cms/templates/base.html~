@@ -1,0 +1,88 @@
+{% load applicationcontent_tags feincms_tags feincms_page_tags %}
+
+<html>
+<head>
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    </style>
+    <title>{{ feincms_page.title }}</title>
+    {{ feincms_page.content.media }}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheet.css"/>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<header class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a href="/" class="brand">FeinCMS-Snippet</a>
+            <nav>
+                <ul class="nav">
+                    {% feincms_nav feincms_page level=1 as toplevel %}
+                    {% for p in toplevel %}
+                        <li><a {% if p|is_equal_or_parent_of:feincms_page %}class="mark"{% endif %}
+                               href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                <p class="navbar-text pull-right">
+                    Logged in as <a href="#" class="navbar-link">Username</a>
+                </p>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Sidebar</li>
+                    {% block sidebar %} {% for content in feincms_page.content.sidebar %}
+                        <li> {{ content.render }} </li>
+                    {% endfor %} {% endblock %}
+                    <li class="nav-header">Subpages</li>
+                    {% feincms_nav feincms_page level=2 as sublevel %}
+                    {% for p in sublevel %}
+                        {% if forloop.first %}<ul>{% endif %}
+                        <li><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></li>
+                        {% if forloop.last %}</ul>{% endif %}
+                    {% empty %}
+                        No subpages
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <!--/.well -->
+        </div>
+        <!--/span-->
+        <div class="span9">
+            <div class="center hero-unit">
+                <div id="logo">
+                    <h1>{{ feincms_page.title }}</h1>
+                </div>
+                <hr />
+                {% block content %} {% for content in feincms_page.content.main %}
+                    {{ content.render }}
+                {% endfor %} {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <footer class="footer pull-right">
+       &copy <a href="#">SnippetCMS</a> by Elwira Lichocka and Piotr Kowenzowski
+    </footer>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+
+
+{% block sidebar %}
+    <li>Codes together: {{ codes.count }}</li>
+    {% for code in codes %}
+        {% ifchanged code.lang%}
+            <li class="nav-header">{{ code.lang }}</li>
+        {% endifchanged %}
+        <li><a style="display: inline" href={{ code.get_absolute_url }}> {{code.name}}</a> </li>
+    {% endfor %}
+{% endblock %}
